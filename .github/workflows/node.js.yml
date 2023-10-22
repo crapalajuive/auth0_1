@@ -45,6 +45,7 @@ jobs:
           envkey_REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_ID }}
     # - run: npm test
 
+    # requies a token and perms: https://github.com/settings/tokens
     - name: deploy to gh-pages
       run: |
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
