@@ -43,8 +43,10 @@ jobs:
 #          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_ID }}
 #          envkey_REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
 #          envkey_REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_ID }}
-          envkey_REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
-          envkey_REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
+          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
+          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
+#          envkey_REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
+#          envkey_REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
     # - run: npm test
 
     # requies a token and perms: https://github.com/settings/tokens
@@ -53,8 +55,10 @@ jobs:
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
       env:
+          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
+          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
 #          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
 #          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_ID }}
-          envkey_REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
-          envkey_REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
+#          envkey_REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
+#          envkey_REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
