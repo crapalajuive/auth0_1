@@ -1,5 +1,5 @@
 {
-  "name": "auth0",
+  "name": "auth0_1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,8 +14,8 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "PORT=3000 react-scripts start",
-    "build": "PORT=3000 react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -38,3 +38,4 @@
   },
   "homepage": "https://crapalajuive.github.io/auth0_1"
 }
+
