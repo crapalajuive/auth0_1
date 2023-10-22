@@ -44,3 +44,16 @@ jobs:
           envkey_REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
           envkey_REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_ID }}
     # - run: npm test
+
+    - name: deploy to gh-pages
+      run: |
+        git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
+      env:
+          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_ID }}
+          envkey_REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          envkey_REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
