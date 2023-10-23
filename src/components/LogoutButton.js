@@ -1,5 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 
+const ghrepo = process.env.REACT_APP_GITHUB_REPO;
+
 const LogoutButton = () => {
     const { logout, isAuthenticated } = useAuth0();
 
@@ -7,7 +9,7 @@ const LogoutButton = () => {
         isAuthenticated && (
                 <button
                   onClick={() => {
-                    logout({ returnTo: window.location.origin + '/auth0_1/' });
+                    logout({ returnTo: window.location.origin + '/' + ghrepo + '/' });
                   }}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
