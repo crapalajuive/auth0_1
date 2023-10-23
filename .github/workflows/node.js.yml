@@ -31,7 +31,7 @@ jobs:
           REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
           REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
 #          REACT_APP_GITHUB_REPO: "auth0_1"
-          REACT_APP_GITHUB_REPO: ${{GITHUB_REPOSITORY}}
+          REACT_APP_GITHUB_REPO: ${GITHUB_REPOSITORY}
     # - run: npm test
 
     # requies read/write perms
@@ -43,5 +43,5 @@ jobs:
           REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
           REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
 #          REACT_APP_GITHUB_REPO: "auth0_1"
-          REACT_APP_GITHUB_REPO: ${{GITHUB_REPOSITORY}}
+          REACT_APP_GITHUB_REPO: ${GITHUB_REPOSITORY}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
