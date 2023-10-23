@@ -8,10 +8,6 @@ const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const ghrepo = process.env.REACT_APP_GITHUB_REPO;
 
-// # .env - REACT_APP_GITHUB_REPO=auth0_1
-// github_repo=auth0_1
-
-
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
@@ -24,5 +20,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-//      redirectUri={window.location.origin}
