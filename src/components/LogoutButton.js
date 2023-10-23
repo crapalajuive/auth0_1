@@ -5,14 +5,14 @@ const LogoutButton = () => {
 
     return (
         isAuthenticated && (
-                <Button
+                <button
                   onClick={() => {
                     logout({ returnTo: window.location.origin + '/auth0_1/' });
                   }}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   Sign Out
-                </Button>
+                </button>
         )
     )
 }
