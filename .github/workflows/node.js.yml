@@ -26,22 +26,63 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
+    - name: Check if public/CNAME exists
+      id: check-cname
+      run: |
+        if [ -f ${GITHUB_WORKSPACE}/public/CNAME ]; then
+          echo "CNAME file found"
+          echo "::set-output name=file_exists::true"
+        else
+          echo "CNAME file not found"
+          echo "::set-output name=file_exists::false"
+        fi
+
+    - name: Set environment variable
+      run: |
+        if [ "${{ steps.check-cname.outputs.file_exists }}" == "true" ]; then
+          echo "CNAME file exists, do nothing"
+        else
+          echo "CNAME file does not exist, setting REACT_APP_GITHUB_REPO=auth0_1"
+          echo "REACT_APP_GITHUB_REPO=auth0_1" >> $GITHUB_ENV
+        fi
+
     - run: npm run build --if-present
       env:
           REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
           REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
-          REACT_APP_GITHUB_REPO: "auth0_1"
+#          REACT_APP_GITHUB_REPO: "auth0_1"
 #          REACT_APP_GITHUB_REPO: ${{ github.repository }}
     # - run: npm test
 
-    # requies read/write perms
+    # requires read/write perms to repo
     - name: deploy to gh-pages
       run: |
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
       env:
-          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
-          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
-          REACT_APP_GITHUB_REPO: "auth0_1"
+#          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
+#          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
+#          REACT_APP_GITHUB_REPO: "auth0_1"
 #          REACT_APP_GITHUB_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#    - name: Check if public/CNAME exists
+#      id: check-cname
+#      run: |
+#        if [ -f public/CNAME ]; then
+#          echo "CNAME file found"
+#          echo "::set-output name=file_exists::true"
+#        else
+#          echo "CNAME file not found"
+#          echo "::set-output name=file_exists::false"
+#        fi
+#
+#    - name: Set environment variable
+#      run: |
+#        if [ "${{ steps.check-cname.outputs.file_exists }}" == "true" ]; then
+#          echo "CNAME file exists, setting ENV_VARIABLE=true"
+#          echo "ENV_VARIABLE=true" >> $GITHUB_ENV
+#        else
+#          echo "CNAME file does not exist, setting ENV_VARIABLE=false"
+#          echo "ENV_VARIABLE=false" >> $GITHUB_ENV
+#        fi
