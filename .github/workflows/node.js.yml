@@ -44,11 +44,9 @@ jobs:
       run: |
         if [ "${{ steps.check-cname.outputs.file_exists }}" == "true" ]; then
           echo "CNAME file exists, set repo to nothing"
-#          echo "REACT_APP_GITHUB_REPO=" >> $GITHUB_ENV
-          echo "REACT_APP_GITHUB_REPO=" >> $GITHUB_OUTPUT
+          echo "REACT_APP_GITHUB_REPO=''" >> $GITHUB_OUTPUT
         else
           echo "CNAME file does not exist, setting REACT_APP_GITHUB_REPO=${GITHUB_REPOSITORY}"
-#          echo "REACT_APP_GITHUB_REPO=auth0_1" >> $GITHUB_ENV
           echo "REACT_APP_GITHUB_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_OUTPUT
         fi
 
@@ -72,6 +70,8 @@ jobs:
 #          REACT_APP_GITHUB_REPO: "auth0_1"
 #          REACT_APP_GITHUB_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#          echo "REACT_APP_GITHUB_REPO=auth0_1"  $GITHUB_ENV
 
 #    - name: Check if public/CNAME exists
 #      id: check-cname
