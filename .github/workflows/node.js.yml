@@ -33,10 +33,12 @@ jobs:
       run: |
         if [ -f ${GITHUB_WORKSPACE}/public/CNAME ]; then
           echo "CNAME file found"
-          echo "::set-output name=file_exists::true"
+#          echo "::set-output name=file_exists::true"
+          echo "file_exists=true" >> "$GITHUB_OUTPUT"
         else
           echo "CNAME file not found"
-          echo "::set-output name=file_exists::false"
+#          echo "::set-output name=file_exists::false"
+          echo "file_exists=false" >> "$GITHUB_OUTPUT"
         fi
 
     - name: set environment vars
