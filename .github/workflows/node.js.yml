@@ -49,17 +49,20 @@ jobs:
         else
           # echo "CNAME file does not exist, setting REACT_APP_GITHUB_REPO=${GITHUB_REPOSITORY}"
           # echo "REACT_APP_GITHUB_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_OUTPUT
-          echo "CNAME file does not exist, setting REACT_APP_GITHUB_REPO=auth0_1"
-          echo "REACT_APP_GITHUB_REPO=auth0_1" >> $GITHUB_OUTPUT
+          echo "CNAME file does not exist, setting REACT_APP_GITHUB_REPO=${{ github.event.repository.name }}"
+          echo "REACT_APP_GITHUB_REPO=${{ github.event.repository.name }}" >> $GITHUB_OUTPUT
         fi
 
-    - run: npm run build --if-present
+    - name: npm build
+      run: |
+        echo "repo name?: ${REACT_APP_GITHUB_REPO}"
+        npm run build --if-present
       env:
           REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
           REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
-#          REACT_APP_GITHUB_REPO: ${{steps.set-repo.outputs.REACT_APP_GITHUB_REPO}}
-          REACT_APP_GITHUB_REPO: "auth0_1"
-#          REACT_APP_GITHUB_REPO: ${{ github.repository }}
+          REACT_APP_GITHUB_REPO: ${{steps.set-repo.outputs.REACT_APP_GITHUB_REPO}}
+#          REACT_APP_GITHUB_REPO: "auth0_1"
+#          REACT_APP_GITHUB_REPO: ${{ github.event.repository.name }}
     # - run: npm test
 
     # requires read/write perms to repo
@@ -71,7 +74,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
           REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
-          REACT_APP_GITHUB_REPO: "auth0_1"
+          REACT_APP_GITHUB_REPO: ${{steps.set-repo.outputs.REACT_APP_GITHUB_REPO}}
+#          REACT_APP_GITHUB_REPO: "auth0_1"
 #          REACT_APP_GITHUB_REPO: ${{ github.repository }}
 
 #          echo "REACT_APP_GITHUB_REPO=auth0_1"  $GITHUB_ENV
