@@ -14,8 +14,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
-        # node-version: [20.x] # to test
+        # node-version: [18.x]
+        node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -42,6 +42,7 @@ jobs:
     - name: set environment vars
       id: set-repo
       run: |
+        echo "repo name?: ${{ github.repository }}"
         if [ "${{ steps.check-cname.outputs.file_exists }}" == "true" ]; then
           echo "CNAME file exists, set repo to nothing"
           echo "REACT_APP_GITHUB_REPO=''" >> $GITHUB_OUTPUT
@@ -68,9 +69,9 @@ jobs:
         npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
-#          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
-#          REACT_APP_GITHUB_REPO: "auth0_1"
+          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
+          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
+          REACT_APP_GITHUB_REPO: "auth0_1"
 #          REACT_APP_GITHUB_REPO: ${{ github.repository }}
 
 #          echo "REACT_APP_GITHUB_REPO=auth0_1"  $GITHUB_ENV
