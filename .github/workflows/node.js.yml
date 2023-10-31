@@ -42,7 +42,7 @@ jobs:
     - name: set environment vars
       id: set-repo
       run: |
-        echo "repo name?: ${{ github.repository }}"
+        echo "repo name?: ${{ github.event.repository.name }}"
         if [ "${{ steps.check-cname.outputs.file_exists }}" == "true" ]; then
           echo "CNAME file exists, set repo to nothing"
           echo "REACT_APP_GITHUB_REPO=''" >> $GITHUB_OUTPUT
