@@ -65,11 +65,11 @@ jobs:
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
       env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #          REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
 #          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
 #          REACT_APP_GITHUB_REPO: "auth0_1"
 #          REACT_APP_GITHUB_REPO: ${{ github.repository }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #          echo "REACT_APP_GITHUB_REPO=auth0_1"  $GITHUB_ENV
 #          echo "::set-output name=file_exists::false"
