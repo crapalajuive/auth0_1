@@ -47,8 +47,6 @@ jobs:
           echo "CNAME file exists, set repo to nothing"
           echo "REACT_APP_GITHUB_REPO=''" >> $GITHUB_OUTPUT
         else
-          # echo "CNAME file does not exist, setting REACT_APP_GITHUB_REPO=${GITHUB_REPOSITORY}"
-          # echo "REACT_APP_GITHUB_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_OUTPUT
           echo "CNAME file does not exist, setting REACT_APP_GITHUB_REPO=${{ github.event.repository.name }}"
           echo "REACT_APP_GITHUB_REPO=${{ github.event.repository.name }}" >> $GITHUB_OUTPUT
         fi
@@ -68,6 +66,7 @@ jobs:
     # requires read/write perms to repo
     - name: deploy to gh-pages
       run: |
+        echo "repo name?: ${REACT_APP_GITHUB_REPO}"
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
       env:
@@ -75,30 +74,3 @@ jobs:
           REACT_APP_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN_C }}
           REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID_C }}
           REACT_APP_GITHUB_REPO: ${{steps.set-repo.outputs.REACT_APP_GITHUB_REPO}}
-#          REACT_APP_GITHUB_REPO: "auth0_1"
-#          REACT_APP_GITHUB_REPO: ${{ github.repository }}
-
-#          echo "REACT_APP_GITHUB_REPO=auth0_1"  $GITHUB_ENV
-#          echo "::set-output name=file_exists::false"
-#          echo "::set-output name=file_exists::true"
-
-#    - name: Check if public/CNAME exists
-#      id: check-cname
-#      run: |
-#        if [ -f public/CNAME ]; then
-#          echo "CNAME file found"
-#          echo "::set-output name=file_exists::true"
-#        else
-#          echo "CNAME file not found"
-#          echo "::set-output name=file_exists::false"
-#        fi
-#
-#    - name: Set environment variable
-#      run: |
-#        if [ "${{ steps.check-cname.outputs.file_exists }}" == "true" ]; then
-#          echo "CNAME file exists, setting ENV_VARIABLE=true"
-#          echo "ENV_VARIABLE=true" >> $GITHUB_ENV
-#        else
-#          echo "CNAME file does not exist, setting ENV_VARIABLE=false"
-#          echo "ENV_VARIABLE=false" >> $GITHUB_ENV
-#        fi
